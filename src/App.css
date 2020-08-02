@@ -156,7 +156,8 @@ input {
   align-items: center;
   border: 2px solid rgb(172, 160, 160);
   border-right: none;
-  height: 100px;
+  height: auto;
+  padding: 20px 0;
 }
 
 .orders-icon {
