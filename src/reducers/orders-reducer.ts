@@ -1,4 +1,4 @@
-import { Order, item } from "../components/MyOrders";
+import { Order } from "../components/MyOrders";
 import { OrdersTypes } from "../actions/action-types";
 
 const initialState = {
@@ -16,6 +16,8 @@ export function OrdersReducer(
   switch (action.type) {
     case OrdersTypes.GET_CURRENT_ORDERS:
       return { ...state, orders: [...action.payload] };
+    case OrdersTypes.ADD_NEW_ORDER:
+      return { ...state, orders: [...state.orders, action.payload] };
 
     default:
       return state;
