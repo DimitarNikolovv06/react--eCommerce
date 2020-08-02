@@ -1,1 +1,9 @@
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export enum ProductTypes {
+  GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS",
+  ADD_NEW_PRODUCT = "ADD_NEW_PRODUCT",
+}
+
+export enum OrdersTypes {
+  GET_CURRENT_ORDERS = "GET_CURRENT_ORDERS",
+  ADD_NEW_ORDER = "ADD_NEW_ORDER",
+}

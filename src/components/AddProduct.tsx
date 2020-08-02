@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { addProduct } from "../api/products.api";
+import { useDispatch } from "react-redux";
+import { addNewProduct } from "../actions/product-actions";
 
-interface Product {
+export interface Product {
   name: string;
   price: number;
   image: string;
@@ -17,6 +18,8 @@ export const AddProduct: React.FC = () => {
 
   const [isSubmitted, setSubmitted] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
   const onChange: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     e
   ) => {
@@ -28,11 +31,12 @@ export const AddProduct: React.FC = () => {
     });
   };
 
-  const onSubmit: (event: React.FormEvent<HTMLFormElement>) => void = (e) => {
+  const onSubmit: (event: React.FormEvent<HTMLFormElement>) => void = async (
+    e
+  ) => {
     e.preventDefault();
-    addProduct(newProduct)
-      .then(() => setSubmitted(!isSubmitted))
-      .catch((err) => console.log(err));
+    await dispatch(addNewProduct(newProduct));
+    setSubmitted(!isSubmitted);
   };
 
   return (
@@ -76,7 +80,6 @@ export const AddProduct: React.FC = () => {
           </button>
         </form>
       </div>
-      {console.log(newProduct)}
     </>
   );
 };

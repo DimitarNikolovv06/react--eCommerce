@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { myOrders } from "../api/orders.api";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllOrdersFromAPI } from "../actions/orders-actions";
+import { AppState } from "../store/store";
 
-type item = {
+export type item = {
   name: string;
   price: string;
   image: string;
 };
 
-interface Order {
+export interface Order {
   id: number;
   currency: string;
   items: item[];
@@ -16,27 +18,14 @@ interface Order {
 }
 
 export const MyOrders: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>([
-    {
-      id: 0,
-      price: "",
-      currency: "",
-      items: [
-        {
-          name: "",
-          price: "",
-          image: "",
-        },
-      ],
-      status: "",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const orders = useSelector<AppState, AppState["orders"]["orders"]>(
+    (state) => state.orders.orders
+  );
 
   useEffect(() => {
-    myOrders()
-      .then((res) => setOrders(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(fetchAllOrdersFromAPI());
+  }, [dispatch]);
 
   return (
     <>
@@ -44,8 +33,12 @@ export const MyOrders: React.FC = () => {
         <div className="new-p">
           <h3>My orders</h3>
         </div>
-        {orders.map((order) => (
-          <div style={{ display: "flex", width: "100%" }} className="orders">
+        {orders.map((order: Order, i: number) => (
+          <div
+            key={i}
+            style={{ display: "flex", width: "100%" }}
+            className="orders"
+          >
             <div style={{ width: "20%" }} className="order-block">
               <p>Order # {order.id}</p>
             </div>
@@ -53,8 +46,9 @@ export const MyOrders: React.FC = () => {
               style={{ display: "flex", flexDirection: "column", width: "40%" }}
               className="order-block"
             >
-              {order.items.map((item) => (
+              {order.items.map((item, i) => (
                 <div
+                  key={i}
                   style={{
                     textAlign: "left",
                     marginRight: "auto",

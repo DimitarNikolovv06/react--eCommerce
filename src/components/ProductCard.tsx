@@ -1,7 +1,7 @@
 import React from "react";
 import { GiShoppingCart } from "react-icons/gi";
 
-interface Props {
+export interface ProductProps {
   product: {
     name: string;
     price: number;
@@ -9,7 +9,7 @@ interface Props {
   };
 }
 
-export const ProductCard: React.FC<Props> = ({ product }) => {
+export const ProductCard: React.FC<ProductProps> = ({ product }) => {
   return (
     <div className="p-card">
       <div className="p-image">
