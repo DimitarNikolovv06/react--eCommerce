@@ -1,23 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { TiShoppingCart } from "react-icons/ti";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "../../store/store";
-import { fetchAllOrdersFromAPI } from "../../actions/orders-actions";
 
-export const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const orders = useSelector<AppState, AppState["orders"]["orders"]>(
-    (state) => state.orders.orders
-  );
-
-  useEffect(() => {
-    dispatch(fetchAllOrdersFromAPI());
-  }, [dispatch]);
+export const Header: React.FC = (props) => {
+  const {
+    orders: [myOrders],
+  } = useSelector((state: AppState) => state.orders);
 
   return (
     <header>
+      {console.log(myOrders)}
       <div className="logo-div">
         <FiShoppingCart className="logo" />
         <h2 className="logo-text">eShop.com</h2>
@@ -35,9 +30,7 @@ export const Header: React.FC = () => {
         </NavLink>
       </div>
       <TiShoppingCart className="orders-icon" />
-      <div className="order-count">
-        {orders[0] ? orders[0].items.length : 0}
-      </div>
+      <div className="order-count">{myOrders.items.length}</div>
     </header>
   );
 };

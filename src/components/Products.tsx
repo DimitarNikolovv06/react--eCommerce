@@ -8,15 +8,17 @@ import { addNewItem } from "../actions/orders-actions";
 
 export const Products = () => {
   const dispatch = useDispatch();
-  const products = useSelector<AppState, AppState["products"]["products"]>(
-    (state) => state["products"]["products"]
+  const products = useSelector(
+    (state: AppState) => state["products"]["products"]
   );
 
   useEffect(() => {
     dispatch(fetchAllProductsFromApi());
   }, [dispatch]);
 
-  const add = (product: Product) => dispatch(addNewItem(product));
+  const add = (product: Product) => {
+    dispatch(addNewItem(product));
+  };
 
   return (
     <>

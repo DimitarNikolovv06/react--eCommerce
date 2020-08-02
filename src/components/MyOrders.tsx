@@ -5,7 +5,7 @@ import { AppState } from "../store/store";
 
 export type item = {
   name: string;
-  price: string;
+  price: number;
   image: string;
 };
 
@@ -19,9 +19,7 @@ export interface Order {
 
 export const MyOrders: React.FC = () => {
   const dispatch = useDispatch();
-  const orders = useSelector<AppState, AppState["orders"]["orders"]>(
-    (state) => state.orders.orders
-  );
+  const orders = useSelector((state: AppState) => state.orders.orders);
 
   useEffect(() => {
     dispatch(fetchAllOrdersFromAPI());

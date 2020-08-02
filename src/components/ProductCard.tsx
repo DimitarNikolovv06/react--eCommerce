@@ -24,7 +24,10 @@ export const ProductCard: React.FC<ProductProps> = ({ product, add }) => {
         <div className="buy">
           <button
             style={{ background: "none", border: "none" }}
-            onClick={() => add(product)}
+            onClick={(e) => {
+              e.preventDefault();
+              add(product);
+            }}
           >
             <GiShoppingCart className="buy-icon" />
           </button>
