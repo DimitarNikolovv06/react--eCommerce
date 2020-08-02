@@ -2,7 +2,7 @@ import axios from "axios";
 const apiURL = "https://54ri7.sse.codesandbox.io/orders";
 
 export function myOrders() {
-  return axios.get(`${apiURL}`);
+  return axios.get(apiURL);
 }
 
 export async function addOrder(order) {
@@ -12,8 +12,6 @@ export async function addOrder(order) {
     ...orders,
     items: [...orders.items, order],
   };
-
-  console.log("loop");
 
   return axios.put(`${apiURL}/2632/`, newOrders);
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { GiShoppingCart } from "react-icons/gi";
-import { useDispatch } from "react-redux";
-import { addNewItem } from "../actions/orders-actions";
+import { Product } from "./AddProduct";
 
 export interface ProductProps {
   product: {
@@ -9,11 +8,10 @@ export interface ProductProps {
     price: number;
     image: string;
   };
+  add: (p: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductProps> = ({ product }) => {
-  const dispatch = useDispatch();
-
+export const ProductCard: React.FC<ProductProps> = ({ product, add }) => {
   return (
     <div className="p-card">
       <div className="p-image">
@@ -26,7 +24,7 @@ export const ProductCard: React.FC<ProductProps> = ({ product }) => {
         <div className="buy">
           <button
             style={{ background: "none", border: "none" }}
-            onClick={() => dispatch(addNewItem(product))}
+            onClick={() => add(product)}
           >
             <GiShoppingCart className="buy-icon" />
           </button>
